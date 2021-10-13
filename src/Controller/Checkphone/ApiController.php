@@ -46,7 +46,7 @@ class ApiController extends AbstractController
         }
 
         $client = $clientRepository->findByPhone($request->request->has("phone"));
-        print_r($client);
+        print_r($request->request);
         exit();
         if ($client) {
             $client->setState('waiting');
