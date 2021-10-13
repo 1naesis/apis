@@ -20,6 +20,7 @@ class ApiController extends AbstractController
             ->getRepository(Client::class)
             ->findAll();
         dump($test);
+        exit();
         return $this->json($test);
     }
 
