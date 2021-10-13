@@ -46,6 +46,8 @@ class ApiController extends AbstractController
         }
 
         $client = $clientRepository->findByPhone($request->request->has("phone"));
+        print_r($client);
+        exit();
         if ($client) {
             $client->setState('waiting');
             $client->setUpdated(DateTimeImmutable::ISO8601);
