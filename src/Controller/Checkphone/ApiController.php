@@ -4,6 +4,8 @@ namespace App\Controller\Checkphone;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Monolog\DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,13 +39,22 @@ class ApiController extends AbstractController
     /**
      * @Route("/checkphone/client", methods={"POST"})
      */
-    public function addPhone(Request $request): Response
+    public function addPhone(Request $request, ClientRepository $clientRepository, EntityManagerInterface $manager): Response
     {
         if (!$request->request->has("phone")) {
-            return $this->json(["post"=>0]);
+            return $this->json(array());
         }
 
-        return $this->json([$request->request->get("phone")]);
+        $client = $clientRepository->findByPhoneJSON($request->request->has("phone"));
+
+        if ($client) {
+            $client->setState('waiting');
+            $client->setUpdated(DateTimeImmutable::ISO8601);
+        }
+        $manager->persist($client);
+        $manager->flush();
+
+        return $this->json($client);
     }
 
 }
