@@ -19,6 +19,7 @@ class ApiController extends AbstractController
         $test = $this->getDoctrine()
             ->getRepository(Client::class)
             ->findAll();
+        dump($test);
         return $this->json($test);
     }
 
