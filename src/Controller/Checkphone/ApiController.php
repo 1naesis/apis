@@ -17,7 +17,7 @@ class ApiController extends AbstractController
     public function phones(): Response
     {
         $test = $this->getDoctrine()
-            ->getRepository(Client::class, 'checkphone')
+            ->getRepository(Client::class)
             ->findAll();
         return $this->json($test);
     }
