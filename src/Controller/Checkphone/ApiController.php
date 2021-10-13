@@ -2,6 +2,7 @@
 
 namespace App\Controller\Checkphone;
 
+use App\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,10 @@ class ApiController extends AbstractController
      */
     public function phones(): Response
     {
-        return $this->json(["All"]);
+        $test = $this->getDoctrine()
+            ->getRepository(Client::class, 'checkphone')
+            ->findAll();
+        return $this->json($test);
     }
 
     /**
