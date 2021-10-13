@@ -22,6 +22,9 @@ class ClientRepository extends ServiceEntityRepository
     public function findByPhoneJSON(string $phone)
     {
         $client = parent::findOneBy(['phone'=>$phone])??null;
+        if ($client) {
+            return $client->getArray();
+        }
         return $client;
     }
 
