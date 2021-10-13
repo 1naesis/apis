@@ -41,9 +41,9 @@ class ApiController extends AbstractController
      */
     public function addPhone(Request $request, ClientRepository $clientRepository, EntityManagerInterface $manager): Response
     {
-        if (!$request->request->has("phone")) {
-            return $this->json(array());
-        }
+//        if (!$request->request->has("phone")) {
+//            return $this->json(array());
+//        }
 
         $client = $clientRepository->findByPhone($request->request->has("phone"));
         print_r($request->request);
