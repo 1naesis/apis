@@ -4,6 +4,7 @@ namespace App\Controller\Checkphone;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,12 +49,12 @@ class ApiController extends AbstractController
         $client = $clientRepository->findByPhone($request->request->get("phone"));
         if ($client) {
             $client->setState('waiting')
-                ->setUpdated((new DateTimeImmutable()));
+                ->setUpdated(new DateTime());
         } else {
             $client = (new Client())
                 ->setPhone($request->request->get("phone"))
                 ->setState('waiting')
-                ->setUpdated((new DateTimeImmutable()));
+                ->setUpdated(new DateTime());
         }
         $manager->persist($client);
         $manager->flush();
