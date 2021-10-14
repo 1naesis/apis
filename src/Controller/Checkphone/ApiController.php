@@ -45,13 +45,13 @@ class ApiController extends AbstractController
 //            return $this->json(array());
 //        }
 
-        $client = $clientRepository->findByPhone($request->request->has("phone"));
+        $client = $clientRepository->findByPhone($request->request->get("phone"));
         if ($client) {
             $client->setState('waiting');
 //            $client->setUpdated(new DateTimeImmutable());
+            $manager->persist($client);
+            $manager->flush();
         }
-        $manager->persist($client);
-        $manager->flush();
 
         return $this->json($client->getArray());
     }
