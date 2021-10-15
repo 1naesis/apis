@@ -57,22 +57,22 @@ class ApiController extends AbstractController
                 }
             }
         }
-        if (!$phone) {
-            throw new BadQueryStringException("Неверный запрос");
-        }
-
-        $client = $clientRepository->findByPhone($phone);
-        if ($client) {
-            $client->setState('waiting')
-                ->setUpdated(new DateTime());
+        if ($phone) {
+            $client = $clientRepository->findByPhone($phone);
+            if ($client) {
+                $client->setState('waiting')
+                    ->setUpdated(new DateTime());
+            } else {
+                $client = (new Client())
+                    ->setPhone($phone)
+                    ->setState('waiting')
+                    ->setUpdated(new DateTime());
+            }
+            $manager->persist($client);
+            $manager->flush();
         } else {
-            $client = (new Client())
-                ->setPhone($phone)
-                ->setState('waiting')
-                ->setUpdated(new DateTime());
+            $client = new Client();
         }
-        $manager->persist($client);
-        $manager->flush();
 
         return $this->json($client->getArray());
     }
