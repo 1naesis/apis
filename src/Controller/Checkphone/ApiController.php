@@ -34,8 +34,11 @@ class ApiController extends AbstractController
      */
     public function phone(string $phone, ClientRepository $clientRepository): Response
     {
-        $client = $clientRepository->findByPhoneJSON($phone);
-        return $this->json($client);
+        $client = $clientRepository->findByPhone($phone);
+        if (!$client) {
+            $client = new Client();
+        }
+        return $this->json($client->getArray());
     }
 
     /**
