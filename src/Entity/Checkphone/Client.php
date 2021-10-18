@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Checkphone;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
