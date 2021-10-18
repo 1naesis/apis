@@ -19,9 +19,12 @@ class ApiController extends AbstractController
      */
     public function setting(): Response
     {
+        $xmlConfig = simplexml_load_file('/usr/applications/checkphone/context.xml');
+
         $setting = [
-            'idchat' => 'asdjaskd'
+            'id_chat' => (string) $xmlConfig->telegram->id_chat
         ];
+
         return $this->json($setting);
     }
 
