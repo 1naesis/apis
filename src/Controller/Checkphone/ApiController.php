@@ -17,14 +17,22 @@ class ApiController extends AbstractController
     /**
      * @Route("/checkphone/setting", methods={"GET"})
      */
-    public function setting(): Response
+    public function setting(Request $request): Response
     {
-        $xmlConfig = simplexml_load_file('/usr/applications/checkphone/context.xml');
+        $pathConfig = '/usr/applications/checkphone/context.xml';
+        $xmlConfig = simplexml_load_file($pathConfig);
+
+        if ($request->query->has("id_chat")
+            && preg_match("/^[A-Za-z0-9]+$/", $request->query->get("id_chat"))
+        ) {
+            $xmlConfig->telegram->id_chat = trim($request->query->get("id_chat"));
+        }
 
         $setting = [
             'id_chat' => (string) $xmlConfig->telegram->id_chat
         ];
 
+        $xmlConfig->asXML($pathConfig);
         return $this->json($setting);
     }
 

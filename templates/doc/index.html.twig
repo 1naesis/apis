@@ -12,7 +12,7 @@
 <details>
     <summary style="cursor: pointer">Сервис загрузки файлов</summary>
     <h3>Сервис загрузки файлов</h3>
-    <p>(POST) <a href="https://www.downloader.stnsystem.tk/">http://www.downloader.stnsystem.tk/</a> - загрузка файлов</p>
+    <p>(POST) <a href="https://www.downloader.stnsystem.tk/">https://www.downloader.stnsystem.tk/</a> - загрузка файлов</p>
     <b>Request</b>
     <ul>
         <li><i>image</i> - файл</li>
@@ -22,7 +22,7 @@
         <li><i>status</i> - 200 / 500</li>
         <li><i>url</i> - ссылка на файл / пустая строка</li>
     </ul>
-    <p>(GET) <a href="https://www.downloader.stnsystem.tk/file/">http://www.downloader.stnsystem.tk/file/</a> - форма для загрузки файлов</p>
+    <p>(GET) <a href="https://www.downloader.stnsystem.tk/file/">https://www.downloader.stnsystem.tk/file/</a> - форма для загрузки файлов</p>
 </details>
 
 <hr>
@@ -30,37 +30,17 @@
 <details>
     <summary style="cursor: pointer">Поисковик по номеру</summary>
     <h3>Поисковик по номеру</h3>
-    <span style="color: red"><p>(GET) <a style="color: gray" href="https://checkphone.stnsystem.tk/setting/setparams/">https://checkphone.stnsystem.tk/setting/setparams/</a> - просмотр текущих настроек<b>(Добавим чуть позже!)</b></p></span>
+    <p>(GET) <a href="https://api.stnsystem.tk/checkphone/setting">https://api.stnsystem.tk/checkphone/setting</a> - просмотр текущих настроек, гет параметры меняют настройки </p>
     <b>Request</b>
     <ul>
-        <li><i>idchat</i> - смена ид чата</li>
+        <li><i>id_chat</i> - смена ид чата</li>
     </ul>
     <b>Response</b>
     <ul>
         <li><i>id_chat</i> - текущий ид чата</li>
     </ul>
-    <span style="color: red"><p>(GET) <a href="https://checkphone.stnsystem.tk/client">https://checkphone.stnsystem.tk/client</a> - просмотреть все записи <b>(Удалено!)</b></p></span>
-    <b>Request JSON</b>
-    <ul>
-        <li><i>id</i> - ид записи</li>
-        <li><i>phone</i> - номер телефона</li>
-        <li><i>updated</i> - дата обновления</li>
-        <li><i>state</i> - статус: waiting/ok</li>
-        <li><i>operator</i> - мобильный оператор</li>
-        <li><i>region</i> - регион, город</li>
-        <li><i>names</i> - возможные имена</li>
-        <li><i>vk</i> - ссылка на вконтакте</li>
-        <li><i>insta</i> - инстаграм</li>
-        <li><i>fb</i> - фейсбук</li>
-        <li><i>email</i> - эл почта</li>
-        <li><i>dayBirdth</i> - дата рождения</li>
-        <li><i>tg</i> - телеграм</li>
-        <li><i>whatsapp</i> - ватсап</li>
-        <li><i>viber</i> - вайбер</li>
-        <li><i>ok</i> - одноклассники</li>
-        <li><i>adress</i> - адрес</li>
-    </ul>
-    <p>(GET) <a href="http://api.stnsystem.tk/checkphone/client/88005553535">https://api.stnsystem.tk/checkphone/client/{phone}</a> - просмотреть все записи по номеру {phone}</p>
+
+    <p>(GET) <a href="https://api.stnsystem.tk/checkphone/client/88005553535">https://api.stnsystem.tk/checkphone/client/{phone}</a> - просмотреть все записи по номеру {phone}</p>
     <b>Request JSON</b>
     <ul>
         <li><i>id</i> - ид записи</li>
@@ -81,7 +61,7 @@
         <li><i>ok</i> - одноклассники</li>
         <li><i>adress</i> - адрес</li>
     </ul>
-    <p>(POST)  <a href="http://api.stnsystem.tk/checkphone/client/">http://api.stnsystem.tk/checkphone/client/</a> - отправить номер на обработку</p>
+    <p>(POST)  <a href="https://api.stnsystem.tk/checkphone/client/">https://api.stnsystem.tk/checkphone/client/</a> - отправить номер на обработку</p>
     <b>Request</b>
     <ul>
         <li><i>phone</i> - номер телефона</li>
