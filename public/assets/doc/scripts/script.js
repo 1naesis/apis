@@ -5,21 +5,31 @@ for (let i = 0; i < listenerRequest.length; i ++) {
 const actionApi = (e) => {
     let button = e.target;
     let idButton = button.getAttribute('id');
+    let loader = document.getElementById(`${idButton}_loader`);
+
+    onLoad(button, loader);
+
     if (idButton == 'checkphone_setting_getsetting') {
-         xhrGet('/checkphone/setting', null);
-    }else {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', "/checkphone/setting", true);
+        xhr.onload = function (){
+            document.getElementById(`${idButton}_response`).innerText = xhr.response
+            offLoad(button, loader);
+        }
+        xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
+            console.log("Ошибка загрузки контента...")
+        };
+        xhr.send();
+    } else {
         console.log(`Не назначено активности для ид: ${idButton}`)
     }
 }
 
-function xhrGet(url, body) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onload = function (){
-        console.log(xhr.response);
-    }
-    xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
-        console.log("Ошибка загрузки контента...")
-    };
-    xhr.send(body)
+const offLoad = (button, loader) => {
+    button.classList.remove('hiddenclass');
+    loader.classList.add('hiddenclass');
+}
+const onLoad = (button, loader) => {
+    loader.classList.remove('hiddenclass');
+    button.classList.add('hiddenclass');
 }
