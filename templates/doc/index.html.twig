@@ -6,87 +6,220 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Doc-Api</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/doc/styles/style.css') }}">
 </head>
 <body>
-<hr>
-<details>
-    <summary style="cursor: pointer">Сервис загрузки файлов</summary>
-    <h3>Сервис загрузки файлов</h3>
-    <p>(POST) <a href="https://www.downloader.stnsystem.tk/">https://www.downloader.stnsystem.tk/</a> - загрузка файлов</p>
-    <b>Request</b>
-    <ul>
-        <li><i>image</i> - файл</li>
-    </ul>
-    <b>Response JSON</b>
-    <ul>
-        <li><i>status</i> - 200 / 500</li>
-        <li><i>url</i> - ссылка на файл / пустая строка</li>
-    </ul>
-    <p>(GET) <a href="https://www.downloader.stnsystem.tk/file/">https://www.downloader.stnsystem.tk/file/</a> - форма для загрузки файлов</p>
-</details>
+<div class="accordion accordion-flush" id="accordionFlushMain">
+    <hr>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-downloader">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-downloader" aria-expanded="false" aria-controls="flush-collapse-downloader">
+                Сервис загрузки файлов
+            </button>
+        </h2>
+        <div id="flush-collapse-downloader" class="accordion-collapse collapse" aria-labelledby="flush-downloader" data-bs-parent="#accordionFlushMain">
+            <div class="accordion-body">
+                <div class="accordion accordion-flush" id="accordionFlushDownloader">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-downloaderFile">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-downloaderFile" aria-expanded="false" aria-controls="flush-collapse-downloaderFile">
+                                Загрузка файлов
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-downloaderFile" class="accordion-collapse collapse" aria-labelledby="flush-downloaderFile" data-bs-parent="#accordionFlushDownloader">
+                            <div class="accordion-body">
+                                <p>(POST) <a href="https://www.downloader.stnsystem.tk/">https://www.downloader.stnsystem.tk/</a> - загрузка файлов</p>
+                                <b>Request</b>
+                                <ul>
+                                    <li><i>image</i> - файл</li>
+                                </ul>
+                                <b>Response JSON</b>
+                                <ul>
+                                    <li><i>status</i> - 200 / 500</li>
+                                    <li><i>url</i> - ссылка на файл / пустая строка</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-checkphone">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-checkphone" aria-expanded="false" aria-controls="flush-collapse-checkphone">
+                Номера
+            </button>
+        </h2>
+        <div id="flush-collapse-checkphone" class="accordion-collapse collapse" aria-labelledby="flush-checkphone" data-bs-parent="#accordionFlushMain">
+            <div class="accordion-body">
+                <div class="accordion accordion-flush" id="accordionFlushCheckphone">
 
-<hr>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-checkphoneSetting">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-checkphoneSetting" aria-expanded="false" aria-controls="flush-collapse-checkphoneSetting">
+                                Просмотр и редактирование настроек
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-checkphoneSetting" class="accordion-collapse collapse" aria-labelledby="flush-checkphoneGetPhone" data-bs-parent="#accordionFlushCheckphone">
+                            <div class="accordion-body">
+                                <p>(GET) <a href="https://api.stnsystem.tk/checkphone/setting">https://api.stnsystem.tk/checkphone/setting</a> - просмотр текущих настроек, гет параметры меняют настройки </p>
+                                <b>Request</b>
+                                <ul>
+                                    <li><i>id_chat</i> - смена ид чата</li>
+                                </ul>
+                                <b>Response</b>
+                                <ul>
+                                    <li><i>id_chat</i> - текущий ид чата</li>
+                                </ul>
+                                <ul class="nav nav-tabs" id="checkphoneSettingTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active"
+                                                id="checkphoneSettingTabGet-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#checkphoneSettingTabGet"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="checkphoneSettingTabGet"
+                                                aria-selected="true">
+                                            Просмотреть настройки</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link"
+                                                id="checkphoneSettingTabSet-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#checkphoneSettingTabSet"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="checkphoneSettingTabSet"
+                                                aria-selected="false">
+                                            Установить настройки</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="checkphoneSettingTabContent">
+                                    <div class="tab-pane fade show active"
+                                         id="checkphoneSettingTabGet"
+                                         role="tabpanel"
+                                         aria-labelledby="checkphoneSettingTabGet-tab">
 
-<details>
-    <summary style="cursor: pointer">Поисковик по номеру</summary>
-    <h3>Поисковик по номеру</h3>
-    <p>(GET) <a href="https://api.stnsystem.tk/checkphone/setting">https://api.stnsystem.tk/checkphone/setting</a> - просмотр текущих настроек, гет параметры меняют настройки </p>
-    <b>Request</b>
-    <ul>
-        <li><i>id_chat</i> - смена ид чата</li>
-    </ul>
-    <b>Response</b>
-    <ul>
-        <li><i>id_chat</i> - текущий ид чата</li>
-    </ul>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <button id="checkphone_setting_getsetting" class="btn btn-primary listener_api_request">Запросить</button>
+                                                <button id="checkphone_setting_getsetting_off" class="btn btn-primary hiddenclass" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    Запросить
+                                                </button>
+                                                <p class="card-text">
+                                                    <pre>{"id_chat":"vzilehalin77086398bot","id_ту":"vzilehalin77086398bot"}</pre>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade"
+                                         id="checkphoneSettingTabSet"
+                                         role="tabpanel"
+                                         aria-labelledby="checkphoneSettingTabSet-tab">
 
-    <p>(GET) <a href="https://api.stnsystem.tk/checkphone/client/88005553535">https://api.stnsystem.tk/checkphone/client/{phone}</a> - просмотреть все записи по номеру {phone}</p>
-    <b>Request JSON</b>
-    <ul>
-        <li><i>id</i> - ид записи</li>
-        <li><i>phone</i> - номер телефона</li>
-        <li><i>updated</i> - дата обновления</li>
-        <li><i>state</i> - статус: waiting/ok/block</li>
-        <li><i>operator</i> - мобильный оператор</li>
-        <li><i>region</i> - регион, город</li>
-        <li><i>names</i> - возможные имена</li>
-        <li><i>vk</i> - ссылка на вконтакте</li>
-        <li><i>insta</i> - инстаграм</li>
-        <li><i>fb</i> - фейсбук</li>
-        <li><i>email</i> - эл почта</li>
-        <li><i>dayBirdth</i> - дата рождения</li>
-        <li><i>tg</i> - телеграм</li>
-        <li><i>whatsapp</i> - ватсап</li>
-        <li><i>viber</i> - вайбер</li>
-        <li><i>ok</i> - одноклассники</li>
-        <li><i>adress</i> - адрес</li>
-    </ul>
-    <p>(POST)  <a href="https://api.stnsystem.tk/checkphone/client/">https://api.stnsystem.tk/checkphone/client/</a> - отправить номер на обработку</p>
-    <b>Request</b>
-    <ul>
-        <li><i>phone</i> - номер телефона</li>
-    </ul>
-    <b>Request JSON</b>
-    <ul>
-        <li><i>id</i> - ид записи</li>
-        <li><i>phone</i> - номер телефона</li>
-        <li><i>updated</i> - дата обновления</li>
-        <li><i>state</i> - статус: waiting/ok</li>
-        <li><i>operator</i> - мобильный оператор</li>
-        <li><i>region</i> - регион, город</li>
-        <li><i>names</i> - возможные имена</li>
-        <li><i>vk</i> - ссылка на вконтакте</li>
-        <li><i>insta</i> - инстаграм</li>
-        <li><i>fb</i> - фейсбук</li>
-        <li><i>email</i> - эл почта</li>
-        <li><i>dayBirdth</i> - дата рождения</li>
-        <li><i>tg</i> - телеграм</li>
-        <li><i>whatsapp</i> - ватсап</li>
-        <li><i>viber</i> - вайбер</li>
-        <li><i>ok</i> - одноклассники</li>
-        <li><i>adress</i> - адрес</li>
-    </ul>
-</details>
-<hr>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="input-group flex-nowrap">
+                                                    <span class="input-group-text" id="addon-wrapping">id_chat</span>
+                                                    <input type="text" class="form-control" placeholder="id_chat" aria-label="id_chat" aria-describedby="addon-wrapping">
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <button id="checkphone_setting_setsetting" class="btn btn-primary listener_api_request">Запросить</button>
+                                                <button id="checkphone_setting_setsetting_off" class="btn btn-primary hiddenclass" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    Запросить
+                                                </button>
+                                                <p class="card-text">
+                                                    <pre>{"id_chat":"vzilehalin77086398bot","id_ту":"vzilehalin77086398bot"}</pre>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-checkphoneGetPhone">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-checkphoneGetPhone" aria-expanded="false" aria-controls="flush-collapse-checkphoneGetPhone">
+                                Получить номер
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-checkphoneGetPhone" class="accordion-collapse collapse" aria-labelledby="flush-checkphoneGetPhone" data-bs-parent="#accordionFlushCheckphone">
+                            <div class="accordion-body">
+                                <p>(GET) <a href="https://api.stnsystem.tk/checkphone/client/88005553535">https://api.stnsystem.tk/checkphone/client/{phone}</a> - просмотреть все записи по номеру {phone}</p>
+                                <b>Request JSON</b>
+                                <ul>
+                                    <li><i>id</i> - ид записи</li>
+                                    <li><i>phone</i> - номер телефона</li>
+                                    <li><i>updated</i> - дата обновления</li>
+                                    <li><i>state</i> - статус: waiting/ok/block</li>
+                                    <li><i>operator</i> - мобильный оператор</li>
+                                    <li><i>region</i> - регион, город</li>
+                                    <li><i>names</i> - возможные имена</li>
+                                    <li><i>vk</i> - ссылка на вконтакте</li>
+                                    <li><i>insta</i> - инстаграм</li>
+                                    <li><i>fb</i> - фейсбук</li>
+                                    <li><i>email</i> - эл почта</li>
+                                    <li><i>dayBirdth</i> - дата рождения</li>
+                                    <li><i>tg</i> - телеграм</li>
+                                    <li><i>whatsapp</i> - ватсап</li>
+                                    <li><i>viber</i> - вайбер</li>
+                                    <li><i>ok</i> - одноклассники</li>
+                                    <li><i>adress</i> - адрес</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-checkphoneAddPhone">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-checkphoneAddPhone" aria-expanded="false" aria-controls="flush-collapse-checkphoneAddPhone">
+                                Добавить телефон
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-checkphoneAddPhone" class="accordion-collapse collapse" aria-labelledby="flush-checkphoneAddPhone" data-bs-parent="#accordionFlushCheckphone">
+                            <div class="accordion-body">
+                                <p>(POST)  <a href="https://api.stnsystem.tk/checkphone/client/">https://api.stnsystem.tk/checkphone/client/</a> - отправить номер на обработку</p>
+                                <b>Request</b>
+                                <ul>
+                                    <li><i>phone</i> - номер телефона</li>
+                                </ul>
+                                <b>Request JSON</b>
+                                <ul>
+                                    <li><i>id</i> - ид записи</li>
+                                    <li><i>phone</i> - номер телефона</li>
+                                    <li><i>updated</i> - дата обновления</li>
+                                    <li><i>state</i> - статус: waiting/ok</li>
+                                    <li><i>operator</i> - мобильный оператор</li>
+                                    <li><i>region</i> - регион, город</li>
+                                    <li><i>names</i> - возможные имена</li>
+                                    <li><i>vk</i> - ссылка на вконтакте</li>
+                                    <li><i>insta</i> - инстаграм</li>
+                                    <li><i>fb</i> - фейсбук</li>
+                                    <li><i>email</i> - эл почта</li>
+                                    <li><i>dayBirdth</i> - дата рождения</li>
+                                    <li><i>tg</i> - телеграм</li>
+                                    <li><i>whatsapp</i> - ватсап</li>
+                                    <li><i>viber</i> - вайбер</li>
+                                    <li><i>ok</i> - одноклассники</li>
+                                    <li><i>adress</i> - адрес</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="{{ asset('assets/doc/scripts/script.js') }}"></script>
 </body>
 </html>
