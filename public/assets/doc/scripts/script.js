@@ -39,7 +39,6 @@ const actionApi = (e) => {
         xhr.send();
     } else if (idButton == 'checkphone_getphone') {
         let phone = document.getElementById(`${idButton}_phone`).value;
-        console.log(phone);
         document.getElementById(`${idButton}_response`).innerText = "";
         if (phone.trim().length == 0) {
             document.getElementById(`${idButton}_response`).innerText = "Номер телефона обязателен";
@@ -51,7 +50,7 @@ const actionApi = (e) => {
         xhr.onload = function (){
             try {
                 let response = JSON.parse(xhr.response);
-                document.getElementById(`${idButton}_response`).innerText = response;
+                document.getElementById(`${idButton}_response`).innerText = response.toString();
             } catch (e) {
                 document.getElementById(`${idButton}_response`).innerText = xhr.response;
             }
