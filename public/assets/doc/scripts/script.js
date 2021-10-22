@@ -50,6 +50,8 @@ const actionApi = (e) => {
         xhr.onload = function (){
             try {
                 let response = JSON.parse(xhr.response);
+                console.log(xhr.response);
+                console.log(response);
                 document.getElementById(`${idButton}_response`).innerText = response.toString();
             } catch (e) {
                 document.getElementById(`${idButton}_response`).innerText = xhr.response;
