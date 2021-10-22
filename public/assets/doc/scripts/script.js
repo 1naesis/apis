@@ -49,8 +49,12 @@ const actionApi = (e) => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', `/checkphone/client/${phone}`, true);
         xhr.onload = function (){
-            console.log(xhr.response);
-            // document.getElementById(`${idButton}_response`).innerText = xhr.response
+            try {
+                let response = JSON.stringify(xhr.response);
+                document.getElementById(`${idButton}_response`).innerText = response;
+            } catch (e) {
+                document.getElementById(`${idButton}_response`).innerText = xhr.response;
+            }
             offLoad(button, loader);
         }
         xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
