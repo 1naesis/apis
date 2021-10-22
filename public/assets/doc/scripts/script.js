@@ -50,7 +50,7 @@ const actionApi = (e) => {
         xhr.open('GET', `/checkphone/client/${phone}`, true);
         xhr.onload = function (){
             try {
-                let response = JSON.stringify(xhr.response);
+                let response = JSON.parse(xhr.response);
                 document.getElementById(`${idButton}_response`).innerText = response;
             } catch (e) {
                 document.getElementById(`${idButton}_response`).innerText = xhr.response;
