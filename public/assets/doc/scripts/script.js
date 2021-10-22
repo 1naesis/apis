@@ -9,9 +9,26 @@ const actionApi = (e) => {
 
     onLoad(button, loader);
 
+
     if (idButton == 'checkphone_setting_getsetting') {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', "/checkphone/setting", true);
+        xhr.onload = function (){
+            document.getElementById(`${idButton}_response`).innerText = xhr.response
+            offLoad(button, loader);
+        }
+        xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
+            console.log("Ошибка загрузки контента...")
+        };
+        xhr.send();
+    } else if (idButton == 'checkphone_setting_setsetting') {
+        let id_chat = document.getElementById(`${idButton}_id_chat`);
+        let url = '/checkphone/setting?'
+        if (id_chat && id_chat.value.length > 0) {
+            url += 'id_chat='+id_chat.value.toString();
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
         xhr.onload = function (){
             document.getElementById(`${idButton}_response`).innerText = xhr.response
             offLoad(button, loader);
