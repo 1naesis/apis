@@ -37,6 +37,26 @@ const actionApi = (e) => {
             console.log("Ошибка загрузки контента...")
         };
         xhr.send();
+    } else if (idButton == 'checkphone_getphone') {
+        let phone = document.getElementById(`${idButton}_phone`).value;
+        console.log(phone);
+        document.getElementById(`${idButton}_response`).innerText = "";
+        if (phone.trim().length == 0) {
+            document.getElementById(`${idButton}_response`).innerText = "Номер телефона обязателен";
+            offLoad(button, loader);
+            return;
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `/checkphone/client/${phone}`, true);
+        xhr.onload = function (){
+            console.log(xhr.response);
+            // document.getElementById(`${idButton}_response`).innerText = xhr.response
+            offLoad(button, loader);
+        }
+        xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
+            console.log("Ошибка загрузки контента...")
+        };
+        xhr.send();
     } else {
         console.log(`Не назначено активности для ид: ${idButton}`)
     }

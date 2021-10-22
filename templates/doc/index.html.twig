@@ -174,6 +174,24 @@
                                     <li><i>ok</i> - одноклассники</li>
                                     <li><i>adress</i> - адрес</li>
                                 </ul>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">Номер телефона</span>
+                                            <input id="checkphone_getphone_phone" type="text" class="form-control" placeholder="phone" aria-label="phone" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <button id="checkphone_getphone" class="btn btn-primary listener_api_request">Запросить</button>
+                                        <button id="checkphone_getphone_loader" class="btn btn-primary hiddenclass" type="button" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            Ожидайте
+                                        </button>
+                                        <p class="card-text">
+                                        <pre id="checkphone_getphone_response"></pre>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
