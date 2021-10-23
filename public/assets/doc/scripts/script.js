@@ -14,7 +14,12 @@ const actionApi = (e) => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', "/checkphone/setting", true);
         xhr.onload = function (){
-            document.getElementById(`${idButton}_response`).innerText = xhr.response
+            try {
+                let response = JSON.parse(xhr.response);
+                jsonOutput(document.getElementById(`${idButton}_response`), response);
+            } catch (e) {
+                document.getElementById(`${idButton}_response`).innerText = xhr.response;
+            }
             offLoad(button, loader);
         }
         xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
@@ -30,7 +35,12 @@ const actionApi = (e) => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.onload = function (){
-            document.getElementById(`${idButton}_response`).innerText = xhr.response
+            try {
+                let response = JSON.parse(xhr.response);
+                jsonOutput(document.getElementById(`${idButton}_response`), response);
+            } catch (e) {
+                document.getElementById(`${idButton}_response`).innerText = xhr.response;
+            }
             offLoad(button, loader);
         }
         xhr.onerror = function() { // происходит, только когда запрос совсем не получилось выполнить
@@ -50,9 +60,7 @@ const actionApi = (e) => {
         xhr.onload = function (){
             try {
                 let response = JSON.parse(xhr.response);
-                console.log(xhr.response);
-                console.log(response);
-                document.getElementById(`${idButton}_response`).innerText = response.toString();
+                jsonOutput(document.getElementById(`${idButton}_response`), response);
             } catch (e) {
                 document.getElementById(`${idButton}_response`).innerText = xhr.response;
             }
@@ -71,7 +79,16 @@ const offLoad = (button, loader) => {
     button.classList.remove('hiddenclass');
     loader.classList.add('hiddenclass');
 }
+
 const onLoad = (button, loader) => {
     loader.classList.remove('hiddenclass');
     button.classList.add('hiddenclass');
+}
+
+const jsonOutput = (body, json) => {
+    body.innerHTML = `{<br>`;
+    for (let key in json) {
+        body.innerHTML += `<p style="padding: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
+    }
+    body.innerHTML += `}<br>`;
 }
