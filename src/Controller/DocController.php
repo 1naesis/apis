@@ -13,6 +13,9 @@ class DocController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('doc/index.html.twig', []);
+        $pathConfigCheckphone = '/usr/applications/checkphone/context.xml';
+        $xmlConfigCheckphone = simplexml_load_file($pathConfigCheckphone);
+        $statusCheckphoneRobot = $xmlConfigCheckphone->process;
+        return $this->render('doc/index.html.twig', ["statusCheckphoneRobot" => $statusCheckphoneRobot]);
     }
 }
