@@ -88,7 +88,7 @@ const onLoad = (button, loader) => {
 const jsonOutput = (body, json) => {
     body.innerHTML = `{<br>`;
     for (let key in json) {
-        body.innerHTML += `<p style="padding: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
+        body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
     }
     body.innerHTML += `}<br>`;
 }
