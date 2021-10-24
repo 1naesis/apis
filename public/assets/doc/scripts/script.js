@@ -49,14 +49,19 @@ const actionApi = (e) => {
         xhr.send();
     } else if (idButton == 'checkphone_getphone') {
         let phone = document.getElementById(`${idButton}_phone`).value;
+        let idDev = document.getElementById(`${idButton}_id_dev`).value;
         document.getElementById(`${idButton}_response`).innerText = "";
         if (phone.trim().length == 0) {
             document.getElementById(`${idButton}_response`).innerText = "Номер телефона обязателен";
             offLoad(button, loader);
             return;
         }
+        let getParams = '';
+        if (idDev.trim().length > 0) {
+            getParams += `?id_dev=${idDev.trim()}`;
+        }
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', `/checkphone/client/${phone}`, true);
+        xhr.open('GET', `/checkphone/client/${phone}${getParams}`, true);
         xhr.onload = function (){
             try {
                 let response = JSON.parse(xhr.response);
@@ -72,6 +77,7 @@ const actionApi = (e) => {
         xhr.send();
     } else if (idButton == 'checkphone_setphone') {
         let phone = document.getElementById(`${idButton}_phone`).value;
+        let idDev = document.getElementById(`${idButton}_id_dev`).value;
         document.getElementById(`${idButton}_response`).innerText = "";
         if (phone.trim().length == 0) {
             document.getElementById(`${idButton}_response`).innerText = "Номер телефона обязателен";
@@ -80,6 +86,9 @@ const actionApi = (e) => {
         }
         let fd = new FormData();
         fd.append("phone", phone);
+        if (idDev.trim().length > 0) {
+            fd.append("id_dev", idDev);
+        }
         let xhr = new XMLHttpRequest();
         xhr.open('POST', `/checkphone/client`, true);
         xhr.onload = function (){
