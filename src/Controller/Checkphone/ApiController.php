@@ -64,7 +64,6 @@ class ApiController extends AbstractController
         ClientRepository $clientRepository,
         EntityManagerInterface $manager): Response
     {
-//        echo "bleat";
 
         if ($request->request->has("id_dev")) {
             $idDev = trim($request->request->get("id_dev"));
