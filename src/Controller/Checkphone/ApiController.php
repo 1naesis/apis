@@ -64,12 +64,19 @@ class ApiController extends AbstractController
         ClientRepository $clientRepository,
         EntityManagerInterface $manager): Response
     {
-
+        $idDev = null;
         if ($request->request->has("id_dev")) {
             $idDev = trim($request->request->get("id_dev"));
-            if ($idDev == 403) {
-                return new Response("Forbidden", 403);
+        } else {
+            $json = json_decode($request->getContent());
+            foreach ($json as $k => $j) {
+                if ($k == "id_dev") {
+                    $idDev = trim($j);
+                }
             }
+        }
+        if ($idDev == 403) {
+            return new Response("Forbidden", 403);
         }
 
         $phone = null;
