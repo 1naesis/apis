@@ -3,7 +3,9 @@
 namespace App\Controller\Checkphone;
 
 use App\Entity\Checkphone\Client;
+use App\Entity\Checkphone\Device;
 use App\Repository\Checkphone\ClientRepository;
+use App\Repository\Checkphone\DeviceRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,16 +41,10 @@ class ApiController extends AbstractController
     /**
      * @Route("/checkphone/client/{phone}", methods={"GET"})
      */
-    public function phone(string $phone, ClientRepository $clientRepository, Request $request): Response
+    public function phone(string $phone,
+                          ClientRepository $clientRepository
+    ): Response
     {
-
-        if ($request->query->has("id_dev")) {
-            $idDev = trim($request->query->get("id_dev"));
-            if ($idDev == 403) {
-                return new Response("Forbidden", 403);
-            }
-        }
-
         $client = $clientRepository->findByPhone($phone);
         if (!$client) {
             $client = new Client();
@@ -61,13 +57,15 @@ class ApiController extends AbstractController
      */
     public function addPhone(
         Request $request,
+        EntityManagerInterface $entityManager,
+        DeviceRepository $deviceRepository,
         ClientRepository $clientRepository,
         EntityManagerInterface $manager): Response
     {
         $idDev = null;
         if ($request->request->has("id_dev")) {
             $idDev = trim($request->request->get("id_dev"));
-        } else {
+        } else if ($request->getContent())  {
             $json = json_decode($request->getContent());
             foreach ($json as $k => $j) {
                 if ($k == "id_dev") {
@@ -75,14 +73,26 @@ class ApiController extends AbstractController
                 }
             }
         }
-        if ($idDev == 403) {
-            return new Response("Forbidden", 403);
+        if ($idDev) {
+            $device = $deviceRepository->findOneByUid($idDev);
+
+            if ($device) {
+                $try = $device->getTry();
+                if ($try === 0) {
+                    return new Response("Forbidden", 403);
+                }
+                $device ->setTry($try - 1);
+            } else {
+                $device = (new Device())->setUid($idDev)->setTry(2);
+            }
+            $entityManager->persist($device);
+            $entityManager->flush();
         }
 
         $phone = null;
         if ($request->request->has("phone")) {
             $phone = $request->request->get("phone");
-        } else {
+        } else if ($request->getContent()) {
             $json = json_decode($request->getContent());
             foreach ($json as $k => $j) {
                 if ($k == "phone") {
