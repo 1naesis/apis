@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DeviceRepository::class)
- * @ORM\Table(name="my_entity",
+ * @ORM\Table(name="device",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="unique_map_idx", columns={"uid"})})
  */
 class Device
