@@ -47,7 +47,7 @@ class Client
     /**
      * @var string|null
      *
-     * @ORM\Column(name="operator", type="string", length=20, nullable=true)
+     * @ORM\Column(name="operator", type="string", length=64, nullable=true)
      */
     private $operator;
 
