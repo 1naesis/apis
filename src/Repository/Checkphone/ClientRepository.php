@@ -40,8 +40,10 @@ class ClientRepository extends ServiceEntityRepository
         $client = $this->findByPhone($clientDTO->phone);
 
         if ($client) {
-            $client->setState($clientDTO->state)
-                ->setUpdated($clientDTO->updated);
+            if ($client->getUpdated() < $clientDTO->updated->modify('-1 month')) {
+                $client->setState($clientDTO->state)
+                    ->setUpdated($clientDTO->updated);
+            }
         } else {
             $client = (new Client())
                 ->setPhone($clientDTO->phone)
