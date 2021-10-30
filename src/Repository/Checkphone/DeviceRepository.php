@@ -3,8 +3,11 @@
 namespace App\Repository\Checkphone;
 
 use App\Entity\Checkphone\Device;
+use App\Entity\Checkphone\DeviceDTO;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 /**
  * @method Device|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DeviceRepository extends ServiceEntityRepository
 {
+    private const MAX_COUNT_TRY = 3;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Device::class);
@@ -24,6 +29,34 @@ class DeviceRepository extends ServiceEntityRepository
         return parent::findOneBy(['uid'=>$uid])??null;
     }
 
+    public function isExistsByUid(string $uid): bool
+    {
+        return true;
+    }
+
+    // TODO: Перенести в UseCase все, что ниже
+    public function handler(DeviceDTO $deviceDTO): void
+    {
+        $deviceDTO->createDate = new DateTimeImmutable();
+        $deviceDTO->try = self::MAX_COUNT_TRY;
+
+        $device = $this->findOneByUid($deviceDTO->uid);
+
+        if ($device) {
+            $try = $device->getTry();
+            if ($try === 0) {
+                throw new AccessDeniedException("Forbidden");
+            }
+            $device ->setTry($try - 1);
+        } else {
+            $device = (new Device())
+                ->setUid($deviceDTO->uid)
+                ->setTry($deviceDTO->try)
+                ->setCreateDate($deviceDTO->createDate);
+        }
+        $this->getEntityManager()->persist($device);
+        $this->getEntityManager()->flush();
+    }
     // /**
     //  * @return Device[] Returns an array of Device objects
     //  */

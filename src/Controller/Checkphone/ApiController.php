@@ -3,13 +3,13 @@
 namespace App\Controller\Checkphone;
 
 use App\Entity\Checkphone\Client;
-use App\Entity\Checkphone\Device;
+use App\Entity\Checkphone\DeviceDTO;
 use App\Repository\Checkphone\ClientRepository;
 use App\Repository\Checkphone\DeviceRepository;
 use DateTime;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,6 +63,7 @@ class ApiController extends AbstractController
         ClientRepository $clientRepository,
         EntityManagerInterface $manager): Response
     {
+
         $idDev = null;
         if ($request->request->has("id_dev")) {
             $idDev = trim($request->request->get("id_dev"));
@@ -74,23 +75,15 @@ class ApiController extends AbstractController
                 }
             }
         }
-        if ($idDev) {
-            $device = $deviceRepository->findOneByUid($idDev);
 
-            if ($device) {
-                $try = $device->getTry();
-                if ($try === 0) {
-                    return new Response("Forbidden", 403);
-                }
-                $device ->setTry($try - 1);
-            } else {
-                $device = (new Device())
-                    ->setUid($idDev)
-                    ->setTry(2)
-                    ->setCreateDate(new DateTimeImmutable());
+        if ($idDev) {
+            $deviceDTO = new DeviceDTO();
+            $deviceDTO->uid = $idDev;
+            try {
+                $deviceRepository->handler($deviceDTO);
+            } catch (AccessDeniedException $ex) {
+                return new Response($ex->getMessage(), 403);
             }
-            $entityManager->persist($device);
-            $entityManager->flush();
         }
 
         $phone = null;
