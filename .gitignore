@@ -1,5 +1,6 @@
 
 ###> symfony/framework-bundle ###
+/public/checkphone/uploads/*
 /.idea
 /.env
 /.env.local
