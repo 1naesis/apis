@@ -3,6 +3,7 @@
 namespace App\Entity\Checkphone;
 
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,11 +32,11 @@ class Client
     private $phone;
 
     /**
-     * @var DateTime|null
+     * @var DateTimeImmutable|null
      *
      * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
-    private $updated;
+    private DateTimeImmutable $updated;
 
     /**
      * @var string|null
@@ -172,7 +173,7 @@ class Client
     }
 
     /**
-     * @return DateTime|null
+     * @return DateTimeImmutable|null
      */
     public function getUpdated(): ?DateTime
     {
@@ -180,10 +181,10 @@ class Client
     }
 
     /**
-     * @param DateTime|null $updated
+     * @param DateTimeImmutable|null $updated
      * @return Client
      */
-    public function setUpdated(?DateTime $updated): Client
+    public function setUpdated(?DateTimeImmutable $updated): Client
     {
         $this->updated = $updated;
         return $this;

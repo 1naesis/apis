@@ -3,6 +3,7 @@
 namespace App\Controller\Checkphone;
 
 use App\Entity\Checkphone\Client;
+use App\Entity\Checkphone\ClientDTO;
 use App\Entity\Checkphone\DeviceDTO;
 use App\Repository\Checkphone\ClientRepository;
 use App\Repository\Checkphone\DeviceRepository;
@@ -98,18 +99,9 @@ class ApiController extends AbstractController
             }
         }
         if ($phone) {
-            $client = $clientRepository->findByPhone($phone);
-            if ($client) {
-                $client->setState('waiting')
-                    ->setUpdated(new DateTime());
-            } else {
-                $client = (new Client())
-                    ->setPhone($phone)
-                    ->setState('waiting')
-                    ->setUpdated(new DateTime());
-            }
-            $manager->persist($client);
-            $manager->flush();
+            $clientDTO = new ClientDTO();
+            $clientDTO->phone = $phone;
+            $client = $clientRepository->handler($clientDTO);
         } else {
             $client = new Client();
         }

@@ -3,6 +3,8 @@
 namespace App\Repository\Checkphone;
 
 use App\Entity\Checkphone\Client;
+use App\Entity\Checkphone\ClientDTO;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,6 +30,29 @@ class ClientRepository extends ServiceEntityRepository
     {
         $client = parent::findOneBy(['phone'=>$phone]);
         return $client?$client->getArray():array();
+    }
+
+    // TODO: Перенести в UseCase все, что ниже
+    public function handler(ClientDTO $clientDTO): Client
+    {
+        $clientDTO->updated = new DateTimeImmutable();
+        $clientDTO->state = 'waiting';
+        $client = $this->findByPhone($clientDTO->phone);
+
+        if ($client) {
+            $client->setState($clientDTO->state)
+                ->setUpdated($clientDTO->updated);
+        } else {
+            $client = (new Client())
+                ->setPhone($clientDTO->phone)
+                ->setState($clientDTO->state)
+                ->setUpdated($clientDTO->updated);
+        }
+
+        $this->getEntityManager()->persist($client);
+        $this->getEntityManager()->flush();
+
+        return $client;
     }
 
     // /**

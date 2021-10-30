@@ -29,11 +29,6 @@ class DeviceRepository extends ServiceEntityRepository
         return parent::findOneBy(['uid'=>$uid])??null;
     }
 
-    public function isExistsByUid(string $uid): bool
-    {
-        return true;
-    }
-
     // TODO: Перенести в UseCase все, что ниже
     public function handler(DeviceDTO $deviceDTO): void
     {
