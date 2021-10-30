@@ -34,7 +34,7 @@ class Client
     /**
      * @var DateTimeImmutable|null
      *
-     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     * @ORM\Column(name="updated", type="datetime_immutable", nullable=true)
      */
     private DateTimeImmutable $updated;
 
