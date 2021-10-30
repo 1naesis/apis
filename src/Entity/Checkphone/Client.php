@@ -36,7 +36,7 @@ class Client
      *
      * @ORM\Column(name="updated", type="datetime_immutable", nullable=true)
      */
-    private DateTimeImmutable $updated;
+    private ?DateTimeImmutable $updated;
 
     /**
      * @var string|null
@@ -181,10 +181,10 @@ class Client
     }
 
     /**
-     * @param DateTimeImmutable|null $updated
+     * @param DateTimeImmutable $updated
      * @return Client
      */
-    public function setUpdated(?DateTimeImmutable $updated): Client
+    public function setUpdated(DateTimeImmutable $updated): Client
     {
         $this->updated = $updated;
         return $this;
