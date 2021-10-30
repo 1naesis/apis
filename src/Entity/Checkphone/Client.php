@@ -175,7 +175,7 @@ class Client
     /**
      * @return DateTimeImmutable|null
      */
-    public function getUpdated(): ?DateTime
+    public function getUpdated(): ?DateTimeImmutable
     {
         return $this->updated;
     }
