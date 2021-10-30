@@ -7,6 +7,7 @@ use App\Entity\Checkphone\Device;
 use App\Repository\Checkphone\ClientRepository;
 use App\Repository\Checkphone\DeviceRepository;
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +84,10 @@ class ApiController extends AbstractController
                 }
                 $device ->setTry($try - 1);
             } else {
-                $device = (new Device())->setUid($idDev)->setTry(2);
+                $device = (new Device())
+                    ->setUid($idDev)
+                    ->setTry(2)
+                    ->setCreateDate(new DateTimeImmutable());
             }
             $entityManager->persist($device);
             $entityManager->flush();

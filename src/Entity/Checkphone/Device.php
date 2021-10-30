@@ -3,6 +3,7 @@
 namespace App\Entity\Checkphone;
 
 use App\Repository\Checkphone\DeviceRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,29 @@ class Device
      * @ORM\Column(type="smallint", length=25)
      */
     private $try;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createDate;
+
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getCreateDate(): ?DateTimeImmutable
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * @param DateTimeImmutable $createDate
+     * @return Device
+     */
+    public function setCreateDate(DateTimeImmutable $createDate): Device
+    {
+        $this->createDate = $createDate;
+        return $this;
+    }
 
     public function getId(): ?int
     {
