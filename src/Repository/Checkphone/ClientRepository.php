@@ -39,12 +39,10 @@ class ClientRepository extends ServiceEntityRepository
         $clientDTO->state = 'waiting';
         $client = $this->findByPhone($clientDTO->phone);
 
-        if ($client) {
-            if ($client->getUpdated() < $clientDTO->updated->modify('-1 month')) {
-                $client->setState($clientDTO->state)
-                    ->setUpdated($clientDTO->updated);
-            }
-        } else {
+        if ($client != null && $client->getUpdated() < $clientDTO->updated->modify('-1 month')) {
+            $client->setState($clientDTO->state)
+                ->setUpdated($clientDTO->updated);
+        } else if ($client == null) {
             $client = (new Client())
                 ->setPhone($clientDTO->phone)
                 ->setState($clientDTO->state)
