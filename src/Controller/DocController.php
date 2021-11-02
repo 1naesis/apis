@@ -18,9 +18,7 @@ class DocController extends AbstractController
         $pathConfigCheckphone = '/usr/applications/checkphone/context.xml';
         $xmlConfigCheckphone = simplexml_load_file($pathConfigCheckphone);
         $statusCheckphoneRobot = $xmlConfigCheckphone->process;
-
-        $resp = $clientRepository->countToDay();
         // Checkphone END
-        return $this->render('doc/index.html.twig', ["statusCheckphoneRobot" => $statusCheckphoneRobot, 'resp' =>$resp]);
+        return $this->render('doc/index.html.twig', ["statusCheckphoneRobot" => $statusCheckphoneRobot]);
     }
 }
