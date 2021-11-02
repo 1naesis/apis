@@ -55,6 +55,13 @@ class ClientRepository extends ServiceEntityRepository
         return $client;
     }
 
+    public function countToDay() {
+        $this->createQueryBuilder('c')
+            ->where('c.updated >= CURRENT_DATE')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Client[] Returns an array of Client objects
     //  */
