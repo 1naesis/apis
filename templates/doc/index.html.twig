@@ -29,16 +29,32 @@
                         </h2>
                         <div id="flush-collapse-downloaderFile" class="accordion-collapse collapse" aria-labelledby="flush-downloaderFile" data-bs-parent="#accordionFlushDownloader">
                             <div class="accordion-body">
-                                <p>(POST) <a href="https://www.downloader.stnsystem.tk/">https://www.downloader.stnsystem.tk/</a> - загрузка файлов</p>
+                                <p>(POST) <a href="https://api.stnsystem.tk/download">https://api.stnsystem.tk/download</a> - загрузить файл </p>
                                 <b>Request</b>
                                 <ul>
                                     <li><i>image</i> - файл</li>
                                 </ul>
-                                <b>Response JSON</b>
+                                <b>Response</b>
                                 <ul>
                                     <li><i>status</i> - 200 / 500</li>
                                     <li><i>url</i> - ссылка на файл / пустая строка</li>
                                 </ul>
+                                <div class="card">
+                                    <form id="downloader_download_form" class="card-header">
+                                        <label for="formFile" class="form-label">Выберите файл</label>
+                                        <input class="form-control" type="file" id="formFile" name="image">
+                                    </form>
+                                    <div class="card-body">
+                                        <button id="downloader_download" class="btn btn-primary listener_api_request">Запросить</button>
+                                        <button id="downloader_download_loader" class="btn btn-primary hiddenclass" type="button" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            Ожидайте
+                                        </button>
+                                        <p class="card-text">
+                                        <pre id="downloader_download_response"></pre>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

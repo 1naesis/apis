@@ -104,7 +104,22 @@ const actionApi = (e) => {
             console.log("Ошибка загрузки контента...")
         };
         xhr.send(fd);
-    } else {
+    } else if (idButton == 'downloader_download') {
+        let form = new FormData(document.getElementById('downloader_download_form'));
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/download', true)
+        xhr.onload = function () {
+            try {
+                let response = JSON.parse(xhr.response);
+                jsonOutput(document.getElementById(`${idButton}_response`), response);
+            } catch (e) {
+                document.getElementById(`${idButton}_response`).innerText = xhr.response;
+            }
+            offLoad(button, loader);
+        }
+        xhr.send(form);
+
+    }else {
         console.log(`Не назначено активности для ид: ${idButton}`)
     }
 }
