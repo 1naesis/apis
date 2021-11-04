@@ -69,7 +69,7 @@ class ClientRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('c')
-            ->where('c.last_query >= :date_start AND c.last_query < :date_stop')
+            ->where('c.lastQuery >= :date_start AND c.lastQuery < :date_stop')
             ->setParameter('date_start', $begin_date)
             ->setParameter('date_stop', $end_date)
             ->getQuery()
