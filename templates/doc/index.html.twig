@@ -320,27 +320,19 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">id</th>
-                                                        <th scope="col">phone</th>
-                                                        <th scope="col">date</th>
+                                                        <th scope="col">Ид</th>
+                                                        <th scope="col">Номер</th>
+                                                        <th scope="col">Последнее обновление</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                    </tr>
+                                                    {% for client in listClient: %}
+                                                        <tr>
+                                                            <th scope="row">{{ client.getId() }}</th>
+                                                            <td>{{ client.getPhone() }}</td>
+                                                            <td>{{ client.getLastQuery() }}</td>
+                                                        </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
                                         </pre>
