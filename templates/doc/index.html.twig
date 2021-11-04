@@ -74,7 +74,7 @@
                         Stopped
                     </span>
                 {% endif %}
-                Номера
+                Номера ({{ listClient|length }})
             </button>
         </h2>
         <div id="flush-collapse-checkphone" class="accordion-collapse collapse" aria-labelledby="flush-checkphone" data-bs-parent="#accordionFlushMain">
@@ -292,31 +292,31 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-checkphoneCheckQuery">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-checkphoneCheckQuery" aria-expanded="false" aria-controls="flush-collapse-checkphoneCheckQuery">
-                                Запросы за сегодня ({{ listClient|length }})
+                                Статистика
                             </button>
                         </h2>
                         <div id="flush-collapse-checkphoneCheckQuery" class="accordion-collapse collapse" aria-labelledby="flush-checkphoneCheckQuery" data-bs-parent="#accordionFlushCheckphone">
                             <div class="accordion-body">
 
                                 <div class="card">
-{#                                    <div class="card-header">#}
-{#                                        <div class="input-group flex-nowrap">#}
-{#                                            <span class="input-group-text" id="addon-wrapping">Номер телефона</span>#}
-{#                                            <input id="checkphone_setphone_phone" type="text" class="form-control" placeholder="phone" aria-label="phone" aria-describedby="addon-wrapping">#}
-{#                                        </div>#}
-{#                                        <div class="input-group flex-nowrap">#}
-{#                                            <span class="input-group-text" id="addon-wrapping">Ид устройства</span>#}
-{#                                            <input id="checkphone_setphone_id_dev" type="text" class="form-control" placeholder="id_dev" aria-label="id_dev" aria-describedby="addon-wrapping">#}
-{#                                        </div>#}
-{#                                    </div>#}
+                                    <div class="card-header">
+                                        <div class="input-group flex-nowrap">
+                                            <span style="width: 100px" class="input-group-text" id="addon-wrapping">С</span>
+                                            <input id="checkphone_get_query_count_begin_date" type="date" class="form-control" placeholder="begin_date" aria-label="begin_date" aria-describedby="addon-wrapping">
+                                        </div>
+                                        <div class="input-group flex-nowrap">
+                                            <span style="width: 100px" class="input-group-text" id="addon-wrapping">По</span>
+                                            <input id="checkphone_get_query_count_end_date" type="date" class="form-control" placeholder="end_date" aria-label="end_date" aria-describedby="addon-wrapping">
+                                        </div>
+                                    </div>
                                     <div class="card-body">
-{#                                        <button id="checkphone_setphone" class="btn btn-primary listener_api_request">Запросить</button>#}
-                                        <button id="checkphone_setphone_loader" class="btn btn-primary hiddenclass" type="button" disabled>
+                                        <button id="checkphone_get_query_count" class="btn btn-primary listener_api_request">Запросить</button>
+                                        <button id="checkphone_get_query_count_loader" class="btn btn-primary hiddenclass" type="button" disabled>
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Ожидайте
                                         </button>
                                         <p class="card-text">
-                                        <pre id="checkphone_setphone_response">
+                                        <pre id="checkphone_get_query_count_response">
                                             <table class="table">
                                                 <thead>
                                                     <tr>

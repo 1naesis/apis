@@ -109,4 +109,26 @@ class ApiController extends AbstractController
         return $this->json($client->getArray());
     }
 
+    /**
+     * @Route("/checkphone/querys", methods={"POST"})
+     */
+    public function getQueryCount(Request $request, ClientRepository $clientRepository): Response
+    {
+        $begin = null;
+        $end = null;
+        if ($request->request->has('begin_date') && $request->request->get('begin_date')) {
+            $begin = $request->request->get('begin_date');
+        }
+        if ($request->request->has('end_date') && $request->request->get('end_date')) {
+            $end = $request->request->get('end_date');
+        }
+        $listClient = $clientRepository->countToDay($begin, $end);
+
+        foreach ($listClient as &$client) {
+            $client = json_encode($client->getArray());
+        }
+
+        return $this->json($listClient);
+    }
+
 }

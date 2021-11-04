@@ -59,8 +59,10 @@ class ClientRepository extends ServiceEntityRepository
     public function countToDay($begin_date = null, $end_date = null): array
     {
 
-        $begin_date = $begin_date ?? (new DateTimeImmutable())->setTime(0, 0);
-        $end_date = $end_date ?? (new DateTimeImmutable())->setTime(0, 0)->modify("+1 day");
+        $begin_date = (new DateTimeImmutable($begin_date))->setTime(0, 0)
+            ?? (new DateTimeImmutable())->setTime(0, 0);
+        $end_date = (new DateTimeImmutable($end_date))->setTime(0, 0)->modify("+1 day")
+            ?? (new DateTimeImmutable())->setTime(0, 0)->modify("+1 day");
 
         if ($begin_date > $end_date) {
             $tmp_day = $begin_date;
@@ -69,7 +71,7 @@ class ClientRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('c')
-            ->where('c.lastQuery >= :date_start AND c.lastQuery < :date_stop')
+            ->where('c.lastQuery >= :date_start AND c.lastQuery <= :date_stop')
             ->setParameter('date_start', $begin_date)
             ->setParameter('date_stop', $end_date)
             ->getQuery()

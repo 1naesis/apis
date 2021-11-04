@@ -119,6 +119,40 @@ const actionApi = (e) => {
         }
         xhr.send(form);
 
+    } else if (idButton == 'checkphone_get_query_count') {
+        let fd = new FormData();
+        fd.append('begin_date', document.getElementById(idButton+'_begin_date').value);
+        fd.append('end_date', document.getElementById(idButton+'_end_date').value);
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/checkphone/querys', true)
+        xhr.onload = function () {
+            try {
+                let outputHtml = `Записей на запрошенный период не найдено`;
+                let responseJSON = JSON.parse(xhr.response);
+
+                if (responseJSON.length > 0){
+                    outputHtml = `<table class="table"><thead><tr><th scope="col">Ид</th>
+                    <th scope="col">Номер</th><th scope="col">Последнее обновление</th></tr></thead><tbody>`;
+
+                    responseJSON.forEach(clientJSON => {
+                        let client = JSON.parse(clientJSON);
+                        outputHtml += `<tr>
+                                        <th scope="row">${client.id}</th>
+                                        <td>${client.phone}</td>
+                                        <td>дата</td>
+                                    </tr>`;
+                    });
+
+                    outputHtml += `</tbody></table>`;
+                }
+                document.getElementById(`${idButton}_response`).innerHTML = outputHtml;
+            } catch (e) {
+                document.getElementById(`${idButton}_response`).innerText = xhr.response;
+            }
+            offLoad(button, loader);
+        }
+        xhr.send(fd);
     }else {
         console.log(`Не назначено активности для ид: ${idButton}`)
     }
