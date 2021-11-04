@@ -48,6 +48,7 @@ class ClientRepository extends ServiceEntityRepository
                 ->setState($clientDTO->state)
                 ->setUpdated($clientDTO->updated);
         }
+        $client->setLastQuery($clientDTO->updated);
 
         $this->getEntityManager()->persist($client);
         $this->getEntityManager()->flush();
@@ -55,9 +56,8 @@ class ClientRepository extends ServiceEntityRepository
         return $client;
     }
 
-    public function countToDay($begin_date = null, $end_date = null) {
-
-        $begin_date = new DateTimeImmutable('2.11.2021');
+    public function countToDay($begin_date = null, $end_date = null): array
+    {
 
         $begin_date = $begin_date ?? (new DateTimeImmutable())->setTime(0, 0);
         $end_date = $end_date ?? (new DateTimeImmutable())->setTime(0, 0)->modify("+1 day");
@@ -69,11 +69,12 @@ class ClientRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('c')
-            ->where('c.updated >= :date_start AND c.updated < :date_stop')
+            ->where('c.last_query >= :date_start AND c.last_query < :date_stop')
             ->setParameter('date_start', $begin_date)
             ->setParameter('date_stop', $end_date)
             ->getQuery()
             ->getResult();
+
     }
 
     // /**

@@ -137,6 +137,13 @@ class Client
     private $adress;
 
     /**
+     * @var DateTimeImmutable|null
+     *
+     * @ORM\Column(name="last_query", type="datetime_immutable", nullable=true)
+     */
+    private ?DateTimeImmutable $lastQuery;
+
+    /**
      * @return int
      */
     public function getId(): ?int
@@ -442,6 +449,24 @@ class Client
         return $this;
     }
 
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getLastQuery(): ?DateTimeImmutable
+    {
+        return $this->lastQuery;
+    }
+
+    /**
+     * @param DateTimeImmutable $updated
+     * @return Client
+     */
+    public function setLastQuery(DateTimeImmutable $lastQuery): Client
+    {
+        $this->lastQuery = $lastQuery;
+        return $this;
+    }
+
     public function getArray(): array
     {
         return array(
@@ -461,7 +486,8 @@ class Client
             "whatsapp" => $this->getWhatsapp(),
             "viber" => $this->getViber(),
             "ok" => $this->getOk(),
-            "adress" => $this->getAdress()
+            "adress" => $this->getAdress(),
+            "lastQuery" => $this->getLastQuery()
         );
     }
 
