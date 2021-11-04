@@ -140,7 +140,7 @@ const actionApi = (e) => {
                         outputHtml += `<tr>
                                         <th scope="row">${client.id}</th>
                                         <td>${client.phone}</td>
-                                        <td>дата</td>
+                                        <td>${client.lastQuery}</td>
                                     </tr>`;
                     });
 

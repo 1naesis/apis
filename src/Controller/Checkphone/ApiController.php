@@ -125,9 +125,12 @@ class ApiController extends AbstractController
         $listClient = $clientRepository->countToDay($begin, $end);
 
         foreach ($listClient as &$client) {
-            $client = json_encode($client->getArray());
+            $clientArray = $client->getArray();
+            $clientArray['lastQuery'] = $clientArray['lastQuery'] != null
+                ? $clientArray['lastQuery']->format('d.m.Y H:i')
+                : 'Не определена';
+            $client = json_encode($clientArray);
         }
-
         return $this->json($listClient);
     }
 
