@@ -19,6 +19,8 @@ class DocController extends AbstractController
         $xmlConfigCheckphone = simplexml_load_file($pathConfigCheckphone);
         $statusCheckphoneRobot = $xmlConfigCheckphone->process;
         $listClient = $clientRepository->countToDay();
+        dd($listClient);
+        exit();
         // Checkphone END
         return $this->render('doc/index.html.twig', [
             "statusCheckphoneRobot" => $statusCheckphoneRobot,
