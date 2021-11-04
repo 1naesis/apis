@@ -55,12 +55,15 @@ class ClientRepository extends ServiceEntityRepository
         return $client;
     }
 
-    public function countToDay() {
-//        $this->createQueryBuilder('c')
-//            ->where('c.updated >= :curdate')
-//            ->setParameter('curdate', )
-//            ->getQuery()
-//            ->getResult();
+    public function countToDay($begin_date = null, $end_date = null) {
+
+        return $this->createQueryBuilder('c')
+            ->where('c.updated >= :date_start')
+            ->setParameter('date_start', (new DateTimeImmutable())
+                ->setTime(0, 0)
+                ->modify("-1 month"))
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
