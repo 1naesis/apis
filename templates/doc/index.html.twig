@@ -330,7 +330,7 @@
                                                         <tr>
                                                             <th scope="row">{{ client.getId() }}</th>
                                                             <td>{{ client.getPhone() }}</td>
-                                                            <td>{{ client.getLastQuery() }}</td>
+                                                            <td>{{ client.getLastQuery()|date('d.m.Y H:i') }}</td>
                                                         </tr>
                                                     {% endfor %}
                                                 </tbody>
