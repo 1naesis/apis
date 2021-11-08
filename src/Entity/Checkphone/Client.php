@@ -184,7 +184,7 @@ class Client
      */
     public function getUpdated(): ?DateTimeImmutable
     {
-        return $this->updated;
+        return $this->updated??null;
     }
 
     /**
@@ -454,7 +454,7 @@ class Client
      */
     public function getLastQuery(): ?DateTimeImmutable
     {
-        return $this->lastQuery;
+        return $this->lastQuery??null;
     }
 
     /**
