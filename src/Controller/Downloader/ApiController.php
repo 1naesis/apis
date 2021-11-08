@@ -19,7 +19,7 @@ class ApiController extends AbstractController
     {
         header("Access-Control-Allow-Origin: *");
         $response = [
-            'url' => '',
+            'url' => $request->files->get('image')->getClientOriginalExtension(),
             'status' => 400
         ];
         $allowExtension = ["JPG", "JPEG", "JFIF", "PNG", "TIF", "TIFF", "GIF", "BMP"];
