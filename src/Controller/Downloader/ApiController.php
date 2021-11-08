@@ -26,7 +26,7 @@ class ApiController extends AbstractController
         if ($request->files->has('image')
             && $request->files->get('image') != null
             && $request->files->get('image')->getError() === 0
-            && in_array($request->files->get('image')->getClientOriginalExtension(), $allowExtension)
+            && in_array(mb_strtoupper($request->files->get('image')->getClientOriginalExtension()), $allowExtension)
         )
         {
             $image = $request->files->get('image');
