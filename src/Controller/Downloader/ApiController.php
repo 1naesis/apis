@@ -22,9 +22,12 @@ class ApiController extends AbstractController
             'url' => '',
             'status' => 400
         ];
+        $allowExtension = ["JPG", "JPEG", "JFIF", "PNG", "TIF", "TIFF", "GIF", "BMP"];
         if ($request->files->has('image')
             && $request->files->get('image') != null
-            && $request->files->get('image')->getError() === 0)
+            && $request->files->get('image')->getError() === 0
+            && in_array($request->files->get('image')->getClientOriginalExtension(), $allowExtension)
+        )
         {
             $image = $request->files->get('image');
             $nameFile = time();
@@ -38,6 +41,7 @@ class ApiController extends AbstractController
                 $response['status'] = 200;
             }
         }
+
         return $this->json($response);
     }
 }
