@@ -84,7 +84,7 @@ class ApiController extends AbstractController
     public function downloader3(Request $request): Response
     {
         header("Access-Control-Allow-Origin: *");
-        print_r($request->request);
+        print_r($request->getContent());
         exit();
         return $this->json($request->request);
     }
