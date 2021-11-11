@@ -174,14 +174,17 @@ const jsonOutput = (body, json) => {
         if (key == 'images') {
             try {
                 let images = JSON.parse(json[key]);
-                body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : {</p>`;
-                for (let image in images) {
-                    console.log(image);
-                    body.innerHTML += `<p style="padding-left: 20px; margin: 0;">"${images[image]}"</p>`;
+                if (images.length > 0) {
+                    body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : {</p>`;
+                    for (let image in images) {
+                        body.innerHTML += `<p style="padding-left: 20px; margin: 0;">"${images[image]}"</p>`;
+                    }
+                    body.innerHTML += `<p style="padding-left: 10px; margin: 0;">}</p>`;
+                } else {
+                    body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
                 }
-                body.innerHTML += `<p style="padding-left: 10px; margin: 0;">}</p>`;
             } catch (e) {
-
+                body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
             }
         } else {
             body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
