@@ -491,7 +491,7 @@ class Client
         $forJson = [];
         foreach ($this->images as $image) {
             if ($image->getLink() != null) {
-                $forJson[] = $image->getLink();
+                $forJson[] = 'https://' . $_SERVER['HTTP_HOST'] . $image->getLink();
             }
         }
         return count($forJson)>0 ? json_encode($forJson) : null;
