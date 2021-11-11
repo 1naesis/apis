@@ -480,6 +480,22 @@ class Client
         }
         return $this->images;
     }
+    /**
+     * @return string
+     */
+    public function getImagesJson(): ?string
+    {
+        if ($this->images == null) {
+            $this->images = [];
+        }
+        $forJson = [];
+        foreach ($this->images as $image) {
+            if ($image->getLink() != null) {
+                $forJson[] = $image->getLink();
+            }
+        }
+        return count($forJson)>0 ? json_encode($forJson) : null;
+    }
 
     /**
      * @param array $images
@@ -512,8 +528,7 @@ class Client
             "ok" => $this->getOk(),
             "adress" => $this->getAdress(),
             "lastQuery" => $this->getLastQuery(),
-            "images" => $this->getImages() != null  && count($this->getImages()) > 0
-                ? json_encode($this->getImages()) : null
+            "images" => $this->getImagesJson()
         );
     }
 

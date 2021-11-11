@@ -171,7 +171,21 @@ const onLoad = (button, loader) => {
 const jsonOutput = (body, json) => {
     body.innerHTML = `{<br>`;
     for (let key in json) {
-        body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
+        if (key == 'images') {
+            try {
+                let images = JSON.parse(json[key]);
+                body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : {</p>`;
+                for (let image in images) {
+                    console.log(image);
+                    body.innerHTML += `<p style="padding-left: 20px; margin: 0;">"${images[image]}"</p>`;
+                }
+                body.innerHTML += `<p style="padding-left: 10px; margin: 0;">}</p>`;
+            } catch (e) {
+
+            }
+        } else {
+            body.innerHTML += `<p style="padding-left: 10px; margin: 0;">"${key}" : "${json[key]}"</p>`;
+        }
     }
     body.innerHTML += `}<br>`;
 }
