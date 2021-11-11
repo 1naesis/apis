@@ -143,6 +143,9 @@ class Client
      */
     private ?DateTimeImmutable $lastQuery;
 
+    private array $images = [];
+
+
     /**
      * @return int
      */
@@ -467,6 +470,27 @@ class Client
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getImages(): array
+    {
+        if ($this->images == null) {
+            $this->images = [];
+        }
+        return $this->images;
+    }
+
+    /**
+     * @param array $images
+     * @return Client
+     */
+    public function setImages(array $images): Client
+    {
+        $this->images = $images;
+        return $this;
+    }
+
     public function getArray(): array
     {
         return array(
@@ -487,7 +511,8 @@ class Client
             "viber" => $this->getViber(),
             "ok" => $this->getOk(),
             "adress" => $this->getAdress(),
-            "lastQuery" => $this->getLastQuery()
+            "lastQuery" => $this->getLastQuery(),
+            "images" => $this->getImages() != null ? json_encode($this->getImages()) : null
         );
     }
 

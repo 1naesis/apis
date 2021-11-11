@@ -16,14 +16,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ClientRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private ImagesRepository $imagesRepository;
+
+    public function __construct(ManagerRegistry $registry, ImagesRepository $imagesRepository)
     {
+        $this->imagesRepository = $imagesRepository;
         parent::__construct($registry, Client::class);
     }
 
     public function findByPhone(string $phone): ?Client
     {
-        return parent::findOneBy(['phone'=>$phone])??null;
+        $client = parent::findOneBy(['phone'=>$phone])??null;
+
+        if ($client != null) {
+            $client->setImages($this->imagesRepository->findByClientId($client->getId()));
+        }
+
+        return $client;
     }
 
     public function findByPhoneJSON(string $phone): array

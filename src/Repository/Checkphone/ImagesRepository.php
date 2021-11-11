@@ -2,7 +2,7 @@
 
 namespace App\Repository\Checkphone;
 
-use App\Entity\Images;
+use App\Entity\Checkphone\Images;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +17,11 @@ class ImagesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Images::class);
+    }
+
+    public function findByClientId(int $id): array
+    {
+        return parent::findBy(['client_id'=>$id])??[];
     }
 
     // /**
