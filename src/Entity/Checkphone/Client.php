@@ -512,7 +512,8 @@ class Client
             "ok" => $this->getOk(),
             "adress" => $this->getAdress(),
             "lastQuery" => $this->getLastQuery(),
-            "images" => $this->getImages() != null ? json_encode($this->getImages()) : null
+            "images" => $this->getImages() != null  && count($this->getImages()) > 0
+                ? json_encode($this->getImages()) : null
         );
     }
 
