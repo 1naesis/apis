@@ -84,8 +84,20 @@ class ApiController extends AbstractController
     public function downloader3(Request $request): Response
     {
         header("Access-Control-Allow-Origin: *");
-        print_r($request->getContent());exit();
-        return $this->json($request->request);
+        $response = ['status' => 400];
+        if ($request->files->has('image')
+            && $request->files->get('image') != null
+            && $request->files->get('image')->getError() === 0
+//            && in_array(mb_strtoupper($request->files->get('image')->getClientOriginalExtension()), $allowExtension)
+        )
+        {
+            $response['s_file_ex'] = $request->files->get('image')->getClientOriginalExtension();
+            $response['native_name'] = $_FILES['image']['name'];
+            $response['native_type'] = $_FILES['image']['type'];
+            $response['native_tmp_name'] = $_FILES['image']['tmp_name'];
+            $response['native_size'] = $_FILES['image']['size'];
+        }
+        return $this->json($response);
     }
 
     /**
