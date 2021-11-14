@@ -107,7 +107,10 @@ class ApiController extends AbstractController
     {
         header("Access-Control-Allow-Origin: *");
         $response = ['status' => 400];
-        if ($request->files->has('image')) {
+        if ($request->files->has('image')
+            && $request->files->get('image') != null
+            && $request->files->get('image')->getError() === 0
+        ) {
             $response = ['status' => 200];
         }
         return $this->json($response);
