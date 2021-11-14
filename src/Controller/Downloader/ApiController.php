@@ -110,5 +110,6 @@ class ApiController extends AbstractController
         if ($request->files->has('image')) {
             $response = ['status' => 200];
         }
+        return $this->json($response);
     }
 }
