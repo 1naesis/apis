@@ -97,7 +97,7 @@ class Client
     /**
      * @var string|null
      *
-     * @ORM\Column(name="day_birdth", type="string", length=16, nullable=true)
+     * @ORM\Column(name="day_birdth", type="string", length=128, nullable=true)
      */
     private $dayBirdth;
 
