@@ -17,7 +17,7 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
  */
 class DeviceRepository extends ServiceEntityRepository
 {
-    private const MAX_COUNT_TRY = 2;
+    private const MAX_COUNT_TRY = 0;
 
     public function __construct(ManagerRegistry $registry)
     {
